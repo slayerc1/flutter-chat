@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import 'package:chat/services/services.dart';
+import 'package:chat/helpers/helpers.dart';
 import 'package:chat/widgets/widgets.dart';
 
 class LoginPage extends StatelessWidget {
@@ -18,7 +22,10 @@ class LoginPage extends StatelessWidget {
                 children: const [
                   Logo(titulo: 'Messenger'),
                   _Form(),
-                  Labels(ruta: 'register', pregunta: '¿No tienes cuenta?', enlace: 'Crea una ahora!'),
+                  Labels(
+                      ruta: 'register',
+                      pregunta: '¿No tienes cuenta?',
+                      enlace: 'Crea una ahora!'),
                   Text('Términos y condiciones de uso',
                       style: TextStyle(fontWeight: FontWeight.w200))
                 ],
@@ -42,6 +49,8 @@ class __FormState extends State<_Form> {
 
   @override
   Widget build(BuildContext context) {
+    final authService = Provider.of<AuthService>(context);
+
     return Container(
       margin: const EdgeInsets.only(top: 40),
       padding: const EdgeInsets.symmetric(horizontal: 50),
@@ -61,10 +70,20 @@ class __FormState extends State<_Form> {
           ),
           BotonAzul(
               text: 'Ingrese',
-              onPressed: () {
-                print(emailCtrl.text);
-                print(passCtrl.text);
-              })
+              onPressed: authService.autenticando 
+                ? null
+                : () async {
+                  FocusScope.of(context).unfocus();
+                  final loginOk = await authService.login(emailCtrl.text.trim(), passCtrl.text.trim());
+
+                  if (loginOk) {
+                    // TODO: Conectar a nuestro socket server
+                    if (context.mounted) Navigator.pushReplacementNamed(context, 'usuarios');
+                  } else {
+                    if (context.mounted) mostrarAlerta(context, 'Login incorrecto', 'Revise sus credenciales nuevamente');
+                  }
+                }
+          )
         ],
       ),
     );

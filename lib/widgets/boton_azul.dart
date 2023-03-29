@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class BotonAzul extends StatelessWidget {
 
-  final void Function() onPressed;
+  final void Function()? onPressed;
   final String text;
   
   const BotonAzul({
@@ -26,7 +26,7 @@ class BotonAzul extends StatelessWidget {
 
     get raisedButtonStyle => ElevatedButton.styleFrom(
     elevation: 2,
-    backgroundColor: Colors.blue,
+   backgroundColor: Colors.blue,
     shape: const StadiumBorder()
   );
 }
