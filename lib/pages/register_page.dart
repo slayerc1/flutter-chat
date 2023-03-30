@@ -49,6 +49,7 @@ class __FormState extends State<_Form> {
   Widget build(BuildContext context) {
 
     final authService = Provider.of<AuthService>(context);
+    final socketService = Provider.of<SocketService>(context);
     
     return Container(
       margin: const EdgeInsets.only(top: 40),
@@ -81,7 +82,7 @@ class __FormState extends State<_Form> {
                   final registerOk = await authService.register(nombreCtrl.text.trim(), emailCtrl.text.trim(), passCtrl.text.trim());
 
                   if (registerOk == true) {
-                    // TODO: Conectar a nuestro socket server
+                    socketService.connect();
                     if (context.mounted) Navigator.pushReplacementNamed(context, 'usuarios');
                   } else {
                     if (context.mounted) mostrarAlerta(context, 'Registro incorrecto', registerOk);
