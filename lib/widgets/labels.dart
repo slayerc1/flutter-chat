@@ -12,7 +12,7 @@ class Labels extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(pregunta, style: TextStyle(color: Colors.black54, fontSize: 15, fontWeight: FontWeight.w300)),
+        Text(pregunta, style: const TextStyle(color: Colors.black54, fontSize: 15, fontWeight: FontWeight.w300)),
         const SizedBox(height: 10),
         GestureDetector(
           onTap: () {

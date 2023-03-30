@@ -93,7 +93,7 @@ class _UsuariosPageState extends State<UsuariosPage> {
 
   _cargarUsuarios() async {
     // monitor network fetch
-    await Future.delayed(Duration(milliseconds: 1000));
+    await Future.delayed(const Duration(milliseconds: 1000));
     // if failed,use refreshFailed()
     _refreshController.refreshCompleted();
   }

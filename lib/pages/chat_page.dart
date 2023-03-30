@@ -18,7 +18,7 @@ class _ChatPageState extends State<ChatPage> with TickerProviderStateMixin {
   final _textController = TextEditingController();
   final _focusNode = FocusNode();
 
-  List<ChatMessage> _messages = [];
+  final List<ChatMessage> _messages = [];
 
   bool _estaEscribiendo = false;
 
@@ -39,26 +39,24 @@ class _ChatPageState extends State<ChatPage> with TickerProviderStateMixin {
         ),
         backgroundColor: Colors.white,
       ),
-      body: Container(
-        child: Column(
-          children: [
-            Flexible(
-              child: ListView.builder(
-                physics: const BouncingScrollPhysics(),
-                itemCount: _messages.length,
-                itemBuilder: (context, index) => _messages[index],
-                reverse: true,
-              ),
+      body: Column(
+        children: [
+          Flexible(
+            child: ListView.builder(
+              physics: const BouncingScrollPhysics(),
+              itemCount: _messages.length,
+              itemBuilder: (context, index) => _messages[index],
+              reverse: true,
             ),
+          ),
 
-            const Divider(height: 1),
+          const Divider(height: 1),
 
-            Container(
-              color: Colors.white,
-              child: _inputChat(),
-            )
-          ],
-        ),
+          Container(
+            color: Colors.white,
+            child: _inputChat(),
+          )
+        ],
       )
    );
   }
